@@ -5,9 +5,9 @@ export default function Header() {
     <>
       <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
         <div className="container">
-          <a href="index.html" className="navbar-brand">
+          <Link href="/" className="navbar-brand">
           Rushikesh Villa
-          </a>
+          </Link>
           <button
             className="navbar-toggler collapsed"
             data-toggle="collapse"
