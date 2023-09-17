@@ -1,13 +1,16 @@
+import { HeaderQuery } from "@/graphql/queries";
+import { ApiDetails } from "@/pages/api/hello";
 import Link from "next/link";
 import { NavLink } from "react-router-dom";
-export default function Header() {
+export default function Header({header}) {
+  console.log(header)
   return (
     <>
       <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
         <div className="container">
-          <a href="index.html" className="navbar-brand">
+          <Link href="/" className="navbar-brand">
           Rushikesh Villa
-          </a>
+          </Link>
           <button
             className="navbar-toggler collapsed"
             data-toggle="collapse"
@@ -52,4 +55,34 @@ export default function Header() {
       </nav>
     </>
   );
+}
+export const  getStaticProps = async()=>{
+//  const header = await ApiDetails();
+
+const response = await fetch("http://localhost:1337/graphql",{
+  method:"POST",
+  headers: {"Content-Type": "application/json"},
+  body:JSON.stringify({
+      query: `query{
+        header{
+          data{
+            attributes{
+              logotitle
+              headermenu{
+                title
+                url
+              }
+            }
+          }
+        }
+      }`
+    })
+})
+console.log(response)
+const header= await response.json();
+  return{
+    props:{
+      header:header
+    }
+  }
 }
